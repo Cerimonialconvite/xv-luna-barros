@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>XV Anos · Luna Barros</title>
+<meta name="description" content="29 de novembro de 2026 · 20h · Toque para abrir o convite.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="XV Anos · Luna Barros">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:url" content="https://cerimonialconvite.github.io/xv-luna-barros/">
+<meta property="og:title" content="XV Anos · Luna Barros">
+<meta property="og:description" content="29 de novembro de 2026 · 20h · Toque para abrir o convite.">
+<meta property="og:image" content="https://cerimonialconvite.github.io/xv-luna-barros/img/og.jpg">
+<meta property="og:image:secure_url" content="https://cerimonialconvite.github.io/xv-luna-barros/img/og.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#e38c82">
+<link rel="icon" href="img/og.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" href="img/capa.jpg" as="image">
+<style>
+  :root{ --papel:#f8dcd3; --creme:#fdeae2; --rosa:#e38c82; --rosa-esc:#c27066; --vinho:#9c4f48; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--papel)}
+  body{font-family:"Cormorant Garamond",Georgia,serif;color:var(--vinho);-webkit-tap-highlight-color:transparent}
+  body.fechado{overflow:hidden;height:100%}
+
+  /* ---------- capa e vídeo ---------- */
+  .tela{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:var(--papel);z-index:10;transition:opacity .6s ease}
+  .tela.oculta{opacity:0;pointer-events:none}
+  .quadro{position:relative;height:100%;width:100%;max-width:calc(100vh * 9 / 16);max-height:calc(100vw * 16 / 9);overflow:hidden}
+  .quadro img,.quadro video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  .fundo{position:absolute;inset:-60px;background:url(img/capa.jpg) center/cover;filter:blur(28px) saturate(.9);opacity:.9}
+  #capa{cursor:pointer}
+  #capa .toque{position:absolute;left:50%;bottom:calc(7% + env(safe-area-inset-bottom));transform:translateX(-50%);padding:10px 22px;border:1px solid rgba(194,112,102,.55);border-radius:40px;background:rgba(253,234,226,.55);backdrop-filter:blur(3px);color:var(--rosa-esc);font:600 15px "Cormorant Garamond",serif;letter-spacing:.22em;text-transform:uppercase;white-space:nowrap;animation:pulso 2.2s ease-in-out infinite}
+  @keyframes pulso{0%,100%{box-shadow:0 0 0 0 rgba(227,140,130,0)}50%{box-shadow:0 0 26px 4px rgba(227,140,130,.35)}}
+  #pular{position:absolute;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));padding:8px 14px;border:1px solid rgba(194,112,102,.5);border-radius:30px;background:rgba(253,234,226,.75);color:var(--rosa-esc);font:600 15px "Cormorant Garamond",serif;letter-spacing:.08em;opacity:0;transition:opacity .6s;z-index:2}
+  #animacao.mostra-pular #pular{opacity:1}
+  #brilho{position:fixed;inset:0;background:radial-gradient(circle at 50% 50%,#fffaf7 0%,#fdebe4 55%,#f6d2c8 100%);opacity:0;pointer-events:none;z-index:20;transition:opacity .8s ease}
+  #brilho.saindo{transition:opacity 1.3s ease}
+
+  /* ---------- convite ---------- */
+  /* fundo contínuo (arte sem os elementos): só o conteúdo de cada bloco entra, o papel nunca é cortado */
+  #convite{max-width:540px;margin:0 auto;background:var(--papel) url(img/fundo.jpg) center top/100% auto no-repeat;opacity:0;transition:opacity .6s ease;box-shadow:0 0 40px rgba(156,79,72,.12)}
+  #convite.visivel{opacity:1}
+  .faixa{position:relative;width:100%}
+  .faixa canvas{display:block;width:100%;height:auto}
+  .entra canvas{opacity:0;transform:translateY(14px);transition:opacity 1.2s ease,transform 1.2s cubic-bezier(.2,.7,.2,1)}
+  .entra.visto canvas{opacity:1;transform:none}
+  .ponto{position:absolute;width:17.6%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;cursor:pointer;display:block;z-index:3}
+  .ponto:focus-visible{outline:2px solid var(--rosa-esc);outline-offset:4px}
+  .ponto::after{content:"";position:absolute;inset:14%;border-radius:50%;animation:pulsoIcone 2.4s ease-in-out infinite}
+  @keyframes pulsoIcone{0%,100%{box-shadow:0 0 0 0 rgba(227,140,130,.6)}60%{box-shadow:0 0 0 16px rgba(227,140,130,0)}}
+
+  /* ---------- janela da confirmação ---------- */
+  .aviso{position:fixed;left:50%;bottom:calc(30px + env(safe-area-inset-bottom));transform:translate(-50%,10px);background:rgba(194,112,102,.96);color:#fff6f2;font:500 16px "Cormorant Garamond",serif;letter-spacing:.06em;padding:10px 18px;border-radius:24px;opacity:0;transition:opacity .4s,transform .4s;z-index:40;pointer-events:none;white-space:nowrap}
+  .aviso.mostra{opacity:1;transform:translate(-50%,0)}
+  .janela{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(120,55,50,.45);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .35s}
+  .janela.aberta{opacity:1;pointer-events:auto}
+  .caixa{width:min(100%,calc((100vh - 32px) * 9 / 16),520px);aspect-ratio:9/16;max-height:calc(100vh - 32px);display:flex;flex-direction:column;background:var(--creme);border:1px solid rgba(194,112,102,.5);border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(90,35,30,.4)}
+  .caixa header{display:flex;align-items:center;justify-content:space-between;padding:12px 14px 12px 18px;background:linear-gradient(160deg,#e9998e,#d27c71);color:#fff6f2;font:600 19px "Cormorant Garamond",serif;letter-spacing:.06em}
+  .caixa header button{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,246,242,.7);background:transparent;color:#fff6f2;font-size:20px;line-height:1;cursor:pointer}
+  .caixa iframe{flex:1;width:100%;border:0;background:#fff}
+  #som{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom));z-index:30;width:46px;height:46px;border-radius:50%;border:1px solid rgba(194,112,102,.5);background:rgba(253,234,226,.9);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 14px rgba(120,55,50,.18)}
+  #som.ativo{display:flex}
+  #som svg{width:22px;height:22px;fill:none;stroke:var(--rosa-esc);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  #som .off{display:none} #som.mudo .on{display:none} #som.mudo .off{display:block}
+</style>
+</head>
+<body class="fechado">
+<div id="capa" class="tela" role="button" aria-label="Toque para abrir o convite" tabindex="0">
+  <div class="fundo"></div>
+  <div class="quadro"><img src="img/capa.jpg" alt="Passaporte XV anos de Luna Barros — toque para abrir"><div class="toque">Toque para abrir</div></div>
+</div>
+<div id="animacao" class="tela oculta">
+  <div class="fundo"></div>
+  <div class="quadro">
+    <video id="video" poster="img/poster.jpg" muted playsinline preload="auto"></video>
+    <button id="pular" type="button">Pular ›</button>
+  </div>
+</div>
+<div id="brilho"></div>
+<audio id="musica" preload="auto" loop></audio>
+<button id="som" type="button" aria-label="Pausar música">
+  <svg class="on" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"/></svg>
+  <svg class="off" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17 10l4 4M21 10l-4 4"/></svg>
+</button>
+<div class="aviso" id="aviso">Confirmação disponível em breve</div>
+<div class="janela" id="janela" role="dialog" aria-modal="true" aria-labelledby="janela-titulo">
+  <div class="caixa">
+    <header><span id="janela-titulo">Confirme sua presença</span><button type="button" id="fechar" aria-label="Fechar">×</button></header>
+    <iframe id="janela-frame" title="Confirme sua presença" loading="lazy"></iframe>
+  </div>
+</div>
+
+<main id="convite" hidden>
+  <div class="faixa" data-y="0"    data-h="600" aria-label="Passaporte XV. Brasão Luna Barros, XV anos."></div>
+  <div class="faixa" data-y="600"  data-h="205" aria-label="Você está oficialmente convidado para embarcar nessa aventura única, onde sua presença torna tudo mais especial. O destino? O XV de"></div>
+  <div class="faixa" id="logo" data-y="805" data-h="560" aria-label="Luna Barros"></div>
+  <div class="faixa" data-y="1365" data-h="195" aria-label="29 de novembro de 2026, às 20h"></div>
+  <div class="faixa" data-y="1560" data-h="990" aria-label="Foto de Luna"></div>
+  <div class="faixa" data-y="2550" data-h="290" aria-label="Cartão de embarque. XV anos Luna Barros"></div>
+  <div class="faixa" data-y="2840" data-h="180" aria-label="Data: 29 de novembro de 2026"></div>
+  <div class="faixa" data-y="3020" data-h="180" aria-label="Endereço: Espaço Meriam Gallo Barouh, Cerimonial Caminho das Árvores"></div>
+  <div class="faixa" data-y="3200" data-h="320" aria-label="Dress code: passeio completo. Paleta dos convidados."></div>
+  <div class="faixa" data-y="3520" data-h="480" aria-label="Localização e confirme sua presença">
+    <a class="ponto" id="p-mapa" style="left:32%;top:20.7%" target="_blank" rel="noopener" aria-label="Abrir localização no mapa"
+       href="https://www.google.com/maps/place/Cerimonial+Caminho+das+%C3%81rvores/@-12.982016,-38.4592898,17z/data=!3m1!4b1!4m6!3m5!1s0x7161b9442adc3a9:0xe9fe8963acc9b728!8m2!3d-12.9820212!4d-38.4567149!16s%2Fg%2F11yqqqkmc7"></a>
+    <a class="ponto" id="p-rsvp" style="left:66.9%;top:20.7%" aria-label="Confirmar presença" href="#"></a>
+  </div>
+  <div class="faixa" data-y="4000" data-h="180" aria-label="Clique nos ícones para interagir"></div>
+  <div class="faixa" data-y="4180" data-h="760" aria-label="Foto de Luna em selo postal"></div>
+  <div class="faixa" data-y="4940" data-h="304" aria-label="Espero por você!"></div>
+</main>
+
+<script src="logo-dados.js"></script>
+<script>
+(function(){
+  /* ===== AJUSTES ===== */
+  var LINK_CONFIRMACAO = '';               // cole aqui o link do Google Forms
+  var VIDEO  = 'animacao.mp4';
+  var MUSICA = 'musica.mp3';
+  var ARTE   = 'img/arte.jpg';        // arte completa (logo no final da animação)
+  var CONTEUDO = 'img/conteudo.webp'; // só os elementos, sem o papel
+
+  var capa=document.getElementById('capa'), anim=document.getElementById('animacao'),
+      video=document.getElementById('video'), brilho=document.getElementById('brilho'),
+      convite=document.getElementById('convite'), musica=document.getElementById('musica'),
+      som=document.getElementById('som'), aberto=false, terminou=false;
+  var semMovimento=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(VIDEO){ video.src=VIDEO; try{ video.load(); }catch(e){} } else { anim.remove(); anim=null; video=null; }
+  if(MUSICA){ musica.src=MUSICA; } else { musica.remove(); som.remove(); musica=null; som=null; }
+
+  /* ---------- música: começa no toque; se o celular pausar, volta ao retornar ---------- */
+  function fadeIn(){ musica.volume=0; var v=0; var t=setInterval(function(){ v+=0.05; try{ musica.volume=Math.min(v,0.85); }catch(e){} if(v>=0.85) clearInterval(t); },150); }
+  function tocar(){
+    if(!musica) return;
+    var p=musica.play();
+    if(p&&p.then) p.then(function(){ som.classList.add('ativo'); fadeIn(); }).catch(function(){ som.classList.add('ativo','mudo'); });
+    else som.classList.add('ativo');
+  }
+  var pausadoPeloUsuario=false, saiuPorLink=false;
+  if(som) som.addEventListener('click',function(){
+    if(musica.paused){ pausadoPeloUsuario=false; musica.play(); som.classList.remove('mudo'); som.setAttribute('aria-label','Pausar música'); }
+    else { pausadoPeloUsuario=true; musica.pause(); som.classList.add('mudo'); som.setAttribute('aria-label','Tocar música'); }
+  });
+  document.getElementById('p-mapa').addEventListener('click',function(){ saiuPorLink=true; });
+  function retomar(){
+    if(!musica||!aberto||pausadoPeloUsuario||!musica.paused) return;
+    var p=musica.play();
+    if(p&&p.catch) p.catch(function(){
+      var umToque=function(){ document.removeEventListener('pointerdown',umToque,true); if(!pausadoPeloUsuario) musica.play(); };
+      document.addEventListener('pointerdown',umToque,true);
+    });
+  }
+  document.addEventListener('visibilitychange',function(){
+    if(!musica) return;
+    if(document.hidden){ if(!saiuPorLink && !musica.paused) musica.pause(); }
+    else { saiuPorLink=false; retomar(); }
+  });
+  window.addEventListener('pageshow',retomar);
+  window.addEventListener('focus',function(){ saiuPorLink=false; retomar(); });
+
+  /* ---------- confirmação: abre dentro do convite ---------- */
+  var rsvp=document.getElementById('p-rsvp'), aviso=document.getElementById('aviso'),
+      janela=document.getElementById('janela'), jf=document.getElementById('janela-frame');
+  rsvp.addEventListener('click',function(e){
+    e.preventDefault();
+    if(!LINK_CONFIRMACAO){ aviso.classList.add('mostra'); setTimeout(function(){ aviso.classList.remove('mostra'); },2600); return; }
+    jf.src=LINK_CONFIRMACAO+(LINK_CONFIRMACAO.indexOf('?')<0?'?':'&')+'embedded=true';
+    janela.classList.add('aberta');
+  });
+  function fecharJanela(){ janela.classList.remove('aberta'); setTimeout(function(){ jf.src='about:blank'; },400); }
+  document.getElementById('fechar').addEventListener('click',fecharJanela);
+  janela.addEventListener('click',function(e){ if(e.target===janela) fecharJanela(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') fecharJanela(); });
+
+  /* ---------- abertura ---------- */
+  function abrir(){
+    if(aberto) return; aberto=true;
+    tocar();
+    if(!video){ mostrarConvite(); return; }
+    anim.classList.remove('oculta'); capa.classList.add('oculta');
+    var p=video.play(); if(p&&p.catch) p.catch(function(){ mostrarConvite(); });
+    setTimeout(function(){ anim.classList.add('mostra-pular'); },1200);
+    setTimeout(mostrarConvite,8000);
+  }
+  function mostrarConvite(){
+    if(terminou) return; terminou=true;
+    brilho.style.opacity='1';
+    setTimeout(function(){
+      convite.hidden=false; document.body.classList.remove('fechado'); window.scrollTo(0,0);
+      if(anim){ anim.classList.add('oculta'); try{ video.pause(); }catch(e){} }
+      convite.classList.add('visivel');
+      setTimeout(function(){ brilho.classList.add('saindo'); brilho.style.opacity='0'; iniciarEntrada(); },300);
+      setTimeout(function(){ capa.remove(); if(anim) anim.remove(); },2000);
+    },800);
+  }
+  capa.addEventListener('click',abrir);
+  capa.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); abrir(); } });
+  if(video){
+    video.addEventListener('ended',mostrarConvite);
+    video.addEventListener('timeupdate',function(){ if(video.duration && video.currentTime>=video.duration-0.35) mostrarConvite(); });
+    document.getElementById('pular').addEventListener('click',mostrarConvite);
+  }
+
+  /* ---------- faixas ---------- */
+  var imagens={}, LARG=1080;
+  function carregar(src){ if(!imagens[src]){ imagens[src]=new Promise(function(ok){ var i=new Image(); i.onload=function(){ ok(i); }; i.src=src; }); } return imagens[src]; }
+  var logoEl=document.getElementById('logo');
+  document.querySelectorAll('.faixa').forEach(function(f){
+    var h=+f.dataset.h, c=document.createElement('canvas');
+    c.width=LARG; c.height=h; f.style.aspectRatio=LARG+' / '+h;
+    f.insertBefore(c,f.firstChild); f._canvas=c;
+    if(f!==logoEl) f.classList.add('entra');
+  });
+  carregar(CONTEUDO); carregar(ARTE);
+  if(!semMovimento){ carregar('img/logo-fundo.jpg'); carregar('img/logo-camada.webp'); carregar('img/aviao.png'); }
+  function desenhaInteira(f){
+    return carregar(f===logoEl?ARTE:CONTEUDO).then(function(img){
+      var c=f._canvas, ctx=c.getContext('2d');
+      ctx.setTransform(1,0,0,1,0,0); ctx.globalAlpha=1; ctx.globalCompositeOperation='source-over';
+      ctx.clearRect(0,0,c.width,c.height); ctx.drawImage(img,0,+f.dataset.y,c.width,c.height,0,0,c.width,c.height);
+    });
+  }
+  function revelar(f){
+    if(f._feito) return; f._feito=true;
+    if(f===logoEl){ if(semMovimento) desenhaInteira(f); else voarLogo(f); return; }
+    desenhaInteira(f).then(function(){ requestAnimationFrame(function(){ f.classList.add('visto'); }); });
+  }
+  function iniciarEntrada(){
+    var faixas=document.querySelectorAll('.faixa');
+    if(!('IntersectionObserver' in window)){ faixas.forEach(revelar); return; }
+    var obs=new IntersectionObserver(function(es){ es.forEach(function(e){
+      if(!e.isIntersecting) return; revelar(e.target); obs.unobserve(e.target);
+    }); },{threshold:0.2});
+    faixas.forEach(function(f){ obs.observe(f); });
+  }
+
+  /* ---------- logo: o avião percorre a rota e escreve "Luna Barros" ---------- */
+  function voarLogo(f){
+    var L=window.LOGO, c=f._canvas, ctx=c.getContext('2d'), W=c.width, H=c.height;
+    // enquanto carrega, fundo limpo (sem o logo)
+    carregar('img/logo-fundo.jpg').then(function(fundo){ if(!f._voando) ctx.drawImage(fundo,0,0); });
+    Promise.all([carregar('img/logo-fundo.jpg'),carregar('img/logo-camada.webp'),carregar('img/aviao.png')]).then(function(r){
+      f._voando=true;
+      var fundo=r[0], camada=r[1], aviao=r[2];
+      var m=document.createElement('canvas'); m.width=W; m.height=H; var mc=m.getContext('2d');
+      var S=L.S, OX=L.X0, OY=L.Y0, rota=L.route, N=rota.length-1;
+      var tracos=L.dashes.map(function(d){ return {p:new Path2D(d[0]), t:d[1]}; });
+      var letras=L.letras.map(function(l){ return {p:new Path2D(l[0]), b:l[1]}; });
+      // tempos
+      var VOO=4300, INI=350, FIM_LETRAS=VOO-250, PAUSA=180;
+      var larg=letras.map(function(l){ return l.b[2]-l.b[0]; }), soma=larg.reduce(function(a,b){ return a+b; },0);
+      var util=FIM_LETRAS-INI-PAUSA, t=INI;
+      letras.forEach(function(l,i){ if(i===L.nLuna) t+=PAUSA; l.dur=Math.max(260,util*larg[i]/soma); l.ini=t-(i?l.dur*0.12:0); t+=l.dur; });
+      var ANG=18*Math.PI/180, ca=Math.cos(ANG), sa=Math.sin(ANG), PENA=38;
+      letras.forEach(function(l){ var b=l.b, ps=[b[0]*ca+b[1]*sa,b[2]*ca+b[1]*sa,b[0]*ca+b[3]*sa,b[2]*ca+b[3]*sa]; l.s0=Math.min.apply(0,ps); l.s1=Math.max.apply(0,ps); });
+      function suave(x){ return x<=0?0:x>=1?1:x*x*(3-2*x); }
+      function ease(x){ return 0.45*x+0.55*(0.5-0.5*Math.cos(Math.PI*x)); }
+      function ponto(u){ var k=u*N, i=Math.min(N-1,Math.floor(k)), fr=k-i, a=rota[i], b=rota[i+1]; return [a[0]+(b[0]-a[0])*fr, a[1]+(b[1]-a[1])*fr, i]; }
+      function angulo(i){ var a=rota[Math.max(0,i-6)], b=rota[Math.min(N,i+6)]; return Math.atan2(b[1]-a[1],b[0]-a[0]); }
+      var t0=null, HEAD=L.heading*Math.PI/180, sp=L.sprite, rotSuave=null;
+      function quadro(agora){
+        if(t0===null) t0=agora; var dt=agora-t0;
+        var u=ease(Math.min(1,dt/VOO));
+        // máscara
+        mc.setTransform(1,0,0,1,0,0); mc.globalCompositeOperation='source-over'; mc.clearRect(0,0,W,H);
+        mc.setTransform(S,0,0,S,OX,OY); mc.lineWidth=2.2/S; mc.lineJoin='round';
+        letras.forEach(function(l){
+          var p=Math.min(1,Math.max(0,(dt-l.ini)/l.dur)); if(p<=0) return;
+          if(p>=1){ mc.fillStyle=mc.strokeStyle='#fff'; }
+          else {
+            var e=l.s0+suave(p)*(l.s1-l.s0+PENA);
+            var g=mc.createLinearGradient((e-PENA)*ca,(e-PENA)*sa,e*ca,e*sa);
+            g.addColorStop(0,'rgba(255,255,255,1)'); g.addColorStop(1,'rgba(255,255,255,0)');
+            mc.fillStyle=mc.strokeStyle=g;
+          }
+          mc.fill(l.p); mc.stroke(l.p);
+        });
+        mc.fillStyle=mc.strokeStyle='#fff';
+        tracos.forEach(function(d){
+          var a=Math.min(1,Math.max(0,(u-d.t)/0.012)); if(a<=0) return;
+          mc.globalAlpha=a; mc.fill(d.p); mc.stroke(d.p);
+        });
+        mc.globalAlpha=1; mc.setTransform(1,0,0,1,0,0);
+        mc.globalCompositeOperation='source-in'; mc.drawImage(camada,0,0,W,H);
+        // composição
+        ctx.setTransform(1,0,0,1,0,0); ctx.globalCompositeOperation='source-over';
+        ctx.drawImage(fundo,0,0); ctx.drawImage(m,0,0);
+        // avião
+        var pt=ponto(u), x=OX+pt[0]*S, y=OY+pt[1]*S;
+        var alvo=angulo(pt[2])-HEAD;
+        if(rotSuave===null) rotSuave=alvo;
+        var dif=Math.atan2(Math.sin(alvo-rotSuave),Math.cos(alvo-rotSuave)); rotSuave+=dif*0.35;
+        var pouso=suave((u-0.86)/0.14), rot=rotSuave*(1-pouso);
+        // no fim encaixa exatamente na posição da arte
+        x=x*(1-pouso)+sp.cx*pouso; y=y*(1-pouso)+sp.cy*pouso;
+        var sobe=Math.sin(Math.PI*Math.min(1,u))*(1-pouso), esc=1+0.32*sobe, alfa=suave(dt/350);
+        ctx.save(); ctx.globalAlpha=alfa;
+        ctx.shadowColor='rgba(140,60,52,'+(0.35*sobe)+')'; ctx.shadowBlur=6+14*sobe; ctx.shadowOffsetX=4*sobe; ctx.shadowOffsetY=12*sobe;
+        ctx.translate(x,y); ctx.rotate(rot); ctx.scale(esc,esc);
+        ctx.drawImage(aviao,-sp.w/2,-sp.h/2,sp.w,sp.h);
+        ctx.restore();
+        if(dt<Math.max(VOO,t)+80) requestAnimationFrame(quadro);
+        else desenhaInteira(f);   // final idêntico à arte
+      }
+      setTimeout(function(){ requestAnimationFrame(quadro); },250);
+    });
+  }
+})();
+</script>
+</body>
+</html>
