@@ -66,6 +66,8 @@
   .caixa header{display:flex;align-items:center;justify-content:space-between;padding:12px 14px 12px 18px;background:linear-gradient(160deg,#e9998e,#d27c71);color:#fff6f2;font:600 19px "Cormorant Garamond",serif;letter-spacing:.06em}
   .caixa header button{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,246,242,.7);background:transparent;color:#fff6f2;font-size:20px;line-height:1;cursor:pointer}
   .caixa iframe{flex:1;width:100%;border:0;background:#fff}
+  .caixa footer{padding:8px;text-align:center;background:var(--creme)}
+  .caixa footer a{font:500 14px "Cormorant Garamond",serif;letter-spacing:.04em;color:var(--rosa-esc)}
   #som{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom));z-index:30;width:46px;height:46px;border-radius:50%;border:1px solid rgba(194,112,102,.5);background:rgba(253,234,226,.9);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 14px rgba(120,55,50,.18)}
   #som.ativo{display:flex}
   #som svg{width:22px;height:22px;fill:none;stroke:var(--rosa-esc);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
@@ -95,6 +97,7 @@
   <div class="caixa">
     <header><span id="janela-titulo">Confirme sua presença</span><button type="button" id="fechar" aria-label="Fechar">×</button></header>
     <iframe id="janela-frame" title="Confirme sua presença" loading="lazy"></iframe>
+    <footer><a id="janela-externo" target="_blank" rel="noopener">Não carregou? Abrir a confirmação</a></footer>
   </div>
 </div>
 
@@ -122,7 +125,7 @@
 <script>
 (function(){
   /* ===== AJUSTES ===== */
-  var LINK_CONFIRMACAO = '';               // cole aqui o link do Google Forms
+  var LINK_CONFIRMACAO = 'https://evento.rsvpcheck.com.br/confirma/lunabarros';               // cole aqui o link do Google Forms
   var VIDEO  = 'animacao.mp4';
   var MUSICA = 'musica.mp3';
   var ARTE   = 'img/arte.jpg';        // arte completa (logo no final da animação)
@@ -168,13 +171,15 @@
 
   /* ---------- confirmação: abre dentro do convite ---------- */
   var rsvp=document.getElementById('p-rsvp'), aviso=document.getElementById('aviso'),
-      janela=document.getElementById('janela'), jf=document.getElementById('janela-frame');
+      janela=document.getElementById('janela'), jf=document.getElementById('janela-frame'), jx=document.getElementById('janela-externo');
   rsvp.addEventListener('click',function(e){
     e.preventDefault();
     if(!LINK_CONFIRMACAO){ aviso.classList.add('mostra'); setTimeout(function(){ aviso.classList.remove('mostra'); },2600); return; }
-    jf.src=LINK_CONFIRMACAO+(LINK_CONFIRMACAO.indexOf('?')<0?'?':'&')+'embedded=true';
+    jf.src=/docs\.google\.com\/forms/.test(LINK_CONFIRMACAO) ? LINK_CONFIRMACAO+(LINK_CONFIRMACAO.indexOf('?')<0?'?':'&')+'embedded=true' : LINK_CONFIRMACAO;
+    jx.href=LINK_CONFIRMACAO;
     janela.classList.add('aberta');
   });
+  jx.addEventListener('click',function(){ saiuPorLink=true; });
   function fecharJanela(){ janela.classList.remove('aberta'); setTimeout(function(){ jf.src='about:blank'; },400); }
   document.getElementById('fechar').addEventListener('click',fecharJanela);
   janela.addEventListener('click',function(e){ if(e.target===janela) fecharJanela(); });
